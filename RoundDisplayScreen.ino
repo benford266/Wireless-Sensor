@@ -10,7 +10,7 @@ class LGFX : public lgfx::LGFX_Device
   lgfx::Panel_GC9A01 _panel_instance;
 
   lgfx::Bus_SPI _bus_instance;
-
+// Screen configuration
 public:
   LGFX(void)
   {
@@ -65,7 +65,8 @@ public:
 LGFX display;
 
 typedef struct test_struct {
-  int WMIPressure =999;
+  int sensor1 =999;
+  int sensor2 =999;
 } test_struct;
 
 //Create a struct_message called myData
@@ -76,8 +77,11 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&myData, incomingData, sizeof(myData));
   Serial.print("Bytes received: ");
   Serial.println(len);
-  Serial.print("WMI Pressure: ");
-  Serial.println(myData.WMIPressure);
+  Serial.print("S1 Pressure: ");
+  Serial.println(myData.sensor1);
+  Serial.println();
+  Serial.print("S2 Pressure: ");
+  Serial.println(myData.sensor2);
   Serial.println();
 }
 
@@ -116,11 +120,14 @@ void setup(void)
 uint32_t count = ~0;
 void loop(void)
 {
-  if (myData.WMIPressure == 999){
+  //Change me to pick which sensor to display
+  int sensorvalue = myData.sensor1;
+  if (sensorvalue == 999){
   // Wait to recieve data from sensor
   display.startWrite();
   display.setTextSize(1.5);
-  display.drawString("By BFGarage",60,150);
+  display.drawString("By BFGarage",65,150);
+  display.drawString(String(WiFi.macAddress()),45,180);
   display.setTextSize(2);
   display.drawString("Connecting.",50,110);
   delay(1000);
@@ -135,7 +142,7 @@ void loop(void)
   {
     // Update screen with pressure data
     display.setTextSize(7);
-    display.drawString(String(myData.WMIPressure),60,90);
+    display.drawString(String(sensorvalue),60,90);
     display.setTextSize(4);
     display.drawString("PSI",80,170);
     delay(1000);
