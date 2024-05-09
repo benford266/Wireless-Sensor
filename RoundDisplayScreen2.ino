@@ -1,9 +1,15 @@
+//
+// Function: Tiny OLED ESP32 packages to display sensor data sent over ESP-NOW
+// Author: BFGarage
+// YT Channel: BFGarage
+// Board: ESP32S OLED Packages 
+//
+
 
 #include <LovyanGFX.hpp>
 #include <esp_now.h>
 #include <WiFi.h>
 
-//ESP Board MAC Address:  68:67:25:6A:51:70
 class LGFX : public lgfx::LGFX_Device
 {
 
@@ -64,12 +70,13 @@ public:
 
 LGFX display;
 
+// Struct containing data recieved over ESP-NOW
 typedef struct test_struct {
   int sensor1 =999;
   int sensor2 =999;
 } test_struct;
 
-//Create a struct_message called myData
+// Create a struct_message called myData
 test_struct myData;
 
 
@@ -92,21 +99,24 @@ void setup(void)
   display.initDMA();
   display.startWrite();
   display.setColor(0, 0, 0);
+
   //Backlight config
   pinMode(3, OUTPUT);
   digitalWrite(3, HIGH);
+  
+  // Logo screen
   display.setTextSize(3);
   display.drawString("BFGarage",50,110);
   delay(5000);
   display.clear();
 
-  //Initialize Serial Monitor
+  // Initialize Serial Monitor
   Serial.begin(115200);
   
-  //Set device as a Wi-Fi Station
+  // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
 
-  //Init ESP-NOW
+  // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
     Serial.println("Error initializing ESP-NOW");
     return;
@@ -120,23 +130,25 @@ void setup(void)
 uint32_t count = ~0;
 void loop(void)
 {
-  //Change me to pick which sensor to display
-  int sensorvalue = myData.sensor1;
+  // Change me to pick which sensor to display
+  int sensorvalue = myData.sensor2;
+  
+  // Check if ESP-NOW has recieved data from sender
   if (sensorvalue == 999){
-  // Wait to recieve data from sensor
-  display.startWrite();
-  display.setTextSize(1.5);
-  display.drawString("By BFGarage",65,150);
-  display.drawString(String(WiFi.macAddress()),45,180);
-  display.setTextSize(2);
-  display.drawString("Connecting.",50,110);
-  delay(1000);
-  display.drawString("Connecting..",50,110);
-  delay(1000);
-  display.drawString("Connecting...",50,110);
-  delay(1000);
-  display.clear();
-  display.endWrite();
+    // Wait to recieve data from sensor
+    display.startWrite();
+    display.setTextSize(1.5);
+    display.drawString("By BFGarage",65,150);
+    display.drawString(String(WiFi.macAddress()),45,180);
+    display.setTextSize(2);
+    display.drawString("Connecting.",50,110);
+    delay(1000);
+    display.drawString("Connecting..",50,110);
+    delay(1000);
+    display.drawString("Connecting...",50,110);
+    delay(1000);
+    display.clear();
+    display.endWrite();
   }
   else
   {
