@@ -82,8 +82,8 @@ void setup() {
 void loop() {
 
   // Read sensor value from ADC
-  inputP1 = analogRead(A12); //12 Bit 
-  inputP2 = analogRead(A13); //12 Bit 
+  inputP1 = analogRead(12); //12 Bit 
+  inputP2 = analogRead(13); //12 Bit 
   
   // Maths to ADC vaule into PSI Unit
   sensor1PSI = ((inputP1 - SensorMinRes)* Sensor1MaxPSI /SensorRangeRes);
