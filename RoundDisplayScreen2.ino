@@ -10,20 +10,19 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
+
+
+// Screen configuration
 class LGFX : public lgfx::LGFX_Device
 {
-
   lgfx::Panel_GC9A01 _panel_instance;
-
   lgfx::Bus_SPI _bus_instance;
-// Screen configuration
+
 public:
   LGFX(void)
   {
     {
       auto cfg = _bus_instance.config();
-
-      
       cfg.spi_host = SPI2_HOST;
       cfg.spi_mode = 0;                  
       cfg.freq_write = 80000000;         
@@ -38,10 +37,8 @@ public:
       _bus_instance.config(cfg);              
       _panel_instance.setBus(&_bus_instance); 
     }
-
     {                                     
       auto cfg = _panel_instance.config(); 
-
       cfg.pin_cs = 10;  
       cfg.pin_rst = -1;  
       cfg.pin_busy = -1; 
@@ -59,15 +56,13 @@ public:
       cfg.rgb_order = false;    
       cfg.dlen_16bit = false;   
       cfg.bus_shared = false;   
-
       _panel_instance.config(cfg);
     }
-
     setPanel(&_panel_instance); 
   }
 };
 
-
+// Screen initiate 
 LGFX display;
 
 // Struct containing data recieved over ESP-NOW
@@ -79,19 +74,12 @@ typedef struct test_struct {
 // Create a struct_message called myData
 test_struct myData;
 
-
+// Copy data recieved from ESP-NOW to struct
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&myData, incomingData, sizeof(myData));
-  Serial.print("Bytes received: ");
-  Serial.println(len);
-  Serial.print("S1 Pressure: ");
-  Serial.println(myData.sensor1);
-  Serial.println();
-  Serial.print("S2 Pressure: ");
-  Serial.println(myData.sensor2);
-  Serial.println();
 }
 
+// Setup device 
 void setup(void)
 {
   // SPIConfig
@@ -122,12 +110,12 @@ void setup(void)
     return;
   }
   
-  // Once ESPNow is successfully Init, we will register for recv CB to
-  // get recv packer info
+  // Once ESPNow is successfully Init, we call the function to store the data 
   esp_now_register_recv_cb(OnDataRecv);
 
 }
-uint32_t count = ~0;
+
+// Mainloop 
 void loop(void)
 {
   // Change me to pick which sensor to display
@@ -150,18 +138,24 @@ void loop(void)
     display.clear();
     display.endWrite();
   }
+  // If sensor reading is below -20 update screen with sensor unplugged
+  else if (sensorvalue < -20)
+  {
+    display.setTextSize(2);
+    display.drawString("SensorUnplugged",20,90);
+    delay(1000);
+    display.clear();
+  }
   else
   {
     // Update screen with pressure data
+    display.setTextSize(4);
+    display.drawString("WMI",20,170);
     display.setTextSize(7);
     display.drawString(String(sensorvalue),60,90);
     display.setTextSize(4);
     display.drawString("PSI",80,170);
     delay(1000);
     display.clear();
-    
   }
-
-  
-
 }
