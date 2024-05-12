@@ -153,6 +153,8 @@ void loop(void)
   else
   {
     // Update screen with pressure data
+    display.setTextSize(4);
+    display.drawString("WMI",20,170);
     display.setTextSize(7);
     display.drawString(String(sensorvalue),60,90);
     display.setTextSize(4);
