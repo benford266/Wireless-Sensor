@@ -119,7 +119,7 @@ void setup(void)
 void loop(void)
 {
   // Change me to pick which sensor to display
-  int sensorvalue = myData.sensor1;
+  int sensorvalue = myData.sensor2;
   
   // Check if ESP-NOW has recieved data from sender
   if (sensorvalue == 999){
@@ -142,15 +142,15 @@ void loop(void)
   else if (sensorvalue < -20)
   {
     display.setTextSize(2);
-    display.drawString("SensorUnplugged",20,90);
+    display.drawString("Sensor Unplugged",25,110);
     delay(1000);
     display.clear();
   }
   else
   {
     // Update screen with pressure data
-    display.setTextSize(4);
-    display.drawString("WMI",20,170);
+    display.setTextSize(3);
+    display.drawString("S2",95,30);
     display.setTextSize(7);
     display.drawString(String(sensorvalue),60,90);
     display.setTextSize(4);

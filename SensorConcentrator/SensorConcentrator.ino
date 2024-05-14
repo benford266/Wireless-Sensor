@@ -41,9 +41,9 @@ int outputP1;
 int sensor1PSI;
 int sensor2PSI;
 int Sensor1MaxPSI = 300; // Sensor 1 Max pressure 
-int Sensor2MaxPSI = 300; // Sensor 2 Max pressure 
-int SensorMinRes = 416; // 0.5v value of 12 bit ADC read
-int SensorMaxRes = 3750; // 4.5 value of 12 bit ADC read
+int Sensor2MaxPSI = 100; // Sensor 2 Max pressure 
+int SensorMinRes = 200; // 0.5v value of 12 bit ADC read
+int SensorMaxRes = 4000; // 4.5 value of 12 bit ADC read
 int SensorRangeRes = SensorMaxRes - SensorMinRes; // Range of values between 0.5v and 4.5v 
 
 // Setup device 
@@ -82,13 +82,14 @@ void setup() {
 void loop() {
 
   // Read sensor value from ADC
-  inputP1 = analogRead(12); //12 Bit 
-  inputP2 = analogRead(13); //12 Bit 
+
+  inputP1 = analogRead(34); //12 Bit 
+  inputP2 = analogRead(35); //12 Bit 
   
   // Maths to ADC vaule into PSI Unit
   sensor1PSI = ((inputP1 - SensorMinRes)* Sensor1MaxPSI /SensorRangeRes);
   sensor2PSI = ((inputP2 - SensorMinRes)* Sensor2MaxPSI /SensorRangeRes);
-  
+
   // Put sensor data into var
   test.sensor1 = sensor1PSI;
   test.sensor2 = sensor2PSI;
