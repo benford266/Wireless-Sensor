@@ -10,9 +10,9 @@
 #include <WiFi.h>
 
 // REPLACE with Screen 1 MAC address
-uint8_t broadcastAddress1[] = {0x68, 0x67, 0x25, 0x6A, 0x51, 0x70};
+uint8_t broadcastAddress1[] = {0xDC, 0xDA, 0x0C, 0xC6, 0xB9, 0xA8};
 // REPLACE with Screen 2 MAC address
-uint8_t broadcastAddress2[] = {0x68, 0x67, 0x25, 0x6A, 0x51, 0x70};
+uint8_t broadcastAddress2[] = {0xDC, 0xDA, 0x0C, 0xC3, 0x93, 0x60};
 
 // Struct containing data sent over ESP-NOW
 typedef struct test_struct {
@@ -40,8 +40,8 @@ float inputP2;
 int outputP1;
 int sensor1PSI;
 int sensor2PSI;
-int Sensor1MaxPSI = 300; // Sensor 1 Max pressure 
-int Sensor2MaxPSI = 100; // Sensor 2 Max pressure 
+int Sensor1MaxPSI = 100; // Sensor 1 Max pressure 
+int Sensor2MaxPSI = 300; // Sensor 2 Max pressure 
 int SensorMinRes = 200; // 0.5v value of 12 bit ADC read
 int SensorMaxRes = 4000; // 4.5 value of 12 bit ADC read
 int SensorRangeRes = SensorMaxRes - SensorMinRes; // Range of values between 0.5v and 4.5v 

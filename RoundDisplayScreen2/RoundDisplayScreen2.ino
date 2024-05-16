@@ -150,7 +150,8 @@ void loop(void)
   {
     // Update screen with pressure data
     display.setTextSize(3);
-    display.drawString("S2",95,30);
+    // Gauge Label 
+    display.drawString("BST",95,30);
     display.setTextSize(7);
     display.drawString(String(sensorvalue),60,90);
     display.setTextSize(4);
