@@ -98,5 +98,5 @@ void loop() {
   esp_err_t result = esp_now_send(0, (uint8_t *) &test, sizeof(test_struct));
   
   // Data send delay
-  delay(1000);
+  delay(500);
 }

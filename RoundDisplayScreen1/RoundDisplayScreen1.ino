@@ -94,6 +94,7 @@ void setup(void)
   
   // Logo screen
   display.setTextSize(3);
+  
   display.drawString("BFGarage",50,110);
   delay(5000);
   display.clear();
@@ -148,6 +149,7 @@ void loop(void)
   }
   else
   {
+    display.setTextColor(WHITE);
     // Update screen with pressure data
     display.setTextSize(3);
     // Gauge lable
@@ -158,5 +160,8 @@ void loop(void)
     display.drawString("PSI",80,170);
     delay(1000);
     display.clear();
+    // Development
+    //display.setTextColor(BLACK);
+    //display.drawString(String(sensorvalue),60,90);
   }
 }
