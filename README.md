@@ -1,6 +1,6 @@
 # Wireless Tiny Gauge 
 
-![Project Image](https://github.com/benford266/wireless-sensor/resources/main/IMG_3196.jpeg?raw=true)
+![Project Image](https://github.com/benford266/Wireless-Sensor/blob/Dev/Resources/IMG_3197.jpeg?raw=true)
 
 
 # Project Overview
@@ -33,10 +33,12 @@ Using this project you can place the sensor concentrator in the engine bay and p
 |GND|GND In |◊
 |Voltage Divider|Sense|
 
+![Wiring Diagram Image](https://github.com/benford266/Wireless-Sensor/blob/Dev/Resources/WiringDiagram.png?raw=true)
+
 # See 3D-Parts folder for sample STL files.
 
 Included in the parts folder is a single / Dual mount and Subaru clock pod replacement trim.
 Also included is an enclosure for the sensor concentrator
 
 # Below is my prototype board example
-<insert image here>
+![Project Image](https://github.com/benford266/Wireless-Sensor/blob/Dev/Resources/IMG_3196.jpeg?raw=true)
